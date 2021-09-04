@@ -1,0 +1,110 @@
+[
+    {
+        "display_name": "範例全域參數-數字",
+        "type": "number",
+        "sort": 2,
+        "key": "example.category_limite",
+        "value": "4",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "範例全域參數-標題",
+        "type": "string",
+        "sort": 1,
+        "key": "example.title",
+        "value": "後台系統",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "範例使用者參數",
+        "type": "number",
+        "sort": 0,
+        "key": "example.user.count",
+        "value": "1",
+        "provider_key": 0,
+        "provider_name": "U"
+    },
+    {
+        "display_name": "文字編輯器金鑰",
+        "type": "string",
+        "sort": 0,
+        "key": "tinymce.api.key",
+        "value": "abcdefghijk",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "Driver",
+        "type": "string",
+        "sort": 1,
+        "key": "mail.mailer",
+        "value": "smtp",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "Host",
+        "type": "string",
+        "sort": 2,
+        "key": "mail.host",
+        "value": "smtp.mailtrap.io",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "Port",
+        "type": "string",
+        "sort": 3,
+        "key": "mail.port",
+        "value": "2525",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "User Name",
+        "type": "string",
+        "sort": 4,
+        "key": "mail.username",
+        "value": "test",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "Password",
+        "type": "password",
+        "sort": 5,
+        "key": "mail.password",
+        "value": "test",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "Encryption",
+        "type": "string",
+        "sort": 6,
+        "key": "mail.encryption",
+        "value": "tls",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "From Address",
+        "type": "string",
+        "sort": 7,
+        "key": "mail.from_address",
+        "value": "norely@gmail.com",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "From Name",
+        "type": "string",
+        "sort": 8,
+        "key": "mail.from_name",
+        "value": "Laravel",
+        "provider_key": 0,
+        "provider_name": "G"
+    }
+]

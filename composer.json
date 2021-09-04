@@ -1,0 +1,17 @@
+{
+    "name": "samchentw/settings",
+    "version": "2.0.0",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Samchentw\\Settings\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "samchentw",
+            "email": "penguin.bear11290330@gmail.com"
+        }
+    ],
+    "require": {}
+}
