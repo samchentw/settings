@@ -1,6 +1,7 @@
 {
     "name": "samchentw/settings",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Samchentw\\Settings\\": "src/"
