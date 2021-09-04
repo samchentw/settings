@@ -2,8 +2,8 @@
 
 namespace Samchentw\Settings\Observers;
 
-use Samchen\Settings\Models\Setting;
-use Samchen\Settings\Helpers\SettingHelper;
+use Samchentw\Settings\Models\Setting;
+use Samchentw\Settings\Helpers\SettingHelper;
 class SettingObserver
 {  
     /**

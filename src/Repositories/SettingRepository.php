@@ -3,9 +3,9 @@
 namespace Samchentw\Settings\Repositories;
 
 use Illuminate\Http\Request;
-use Samchen\Settings\Models\Setting;
-use Samchen\Common\Repositories\Base\Repository;
-use Samchen\Settings\Helpers\SettingHelper;
+use Samchentw\Settings\Models\Setting;
+use Samchentw\Common\Repositories\Base\Repository;
+use Samchentw\Settings\Helpers\SettingHelper;
 
 class SettingRepository extends Repository
 {

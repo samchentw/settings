@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Samchen\Settings\Http\Controllers\API\SettingController;
+use Samchentw\Settings\Http\Controllers\API\SettingController;
 
 
 

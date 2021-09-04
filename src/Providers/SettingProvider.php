@@ -2,7 +2,7 @@
 
 namespace Samchentw\Settings\Providers;
 
-use Samchen\Settings\Models\Setting;
+use Samchentw\Settings\Models\Setting;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 

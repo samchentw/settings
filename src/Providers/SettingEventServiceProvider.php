@@ -4,8 +4,8 @@ namespace Samchentw\Settings\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-use Samchen\Settings\Observers\SettingObserver;
-use Samchen\Settings\Models\Setting;
+use Samchentw\Settings\Observers\SettingObserver;
+use Samchentw\Settings\Models\Setting;
 
 
 class SettingEventServiceProvider extends ServiceProvider
