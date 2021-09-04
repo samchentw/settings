@@ -1,6 +1,5 @@
 {
     "name": "samchentw/settings",
-    "version": "2.0.0",
     "type": "library",
     "autoload": {
         "psr-4": {
