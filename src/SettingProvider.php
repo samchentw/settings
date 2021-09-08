@@ -1,6 +1,6 @@
 <?php
 
-namespace Samchentw\Settings\Providers;
+namespace Samchentw\Settings;
 
 use Samchentw\Settings\Models\Setting;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +16,9 @@ class SettingProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(
+            Providers\SettingEventServiceProvider::class,
+        );  
     }
 
     /**
@@ -41,15 +44,15 @@ class SettingProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__ . '/../../database/migrations/2021_08_05_081049_create_settings_table.php' => database_path('migrations/2021_08_05_081049_create_settings_table.php')
+            __DIR__ . '/../database/migrations/2021_08_05_081049_create_settings_table.php' => database_path('migrations/2021_08_05_081049_create_settings_table.php')
         ], 'samchen-setting-migrations');
 
         $this->publishes([
-            __DIR__ . '/../../database/seeders/SettingsSeeder.php' => database_path('seeders/SettingsSeeder.php')
+            __DIR__ . '/../database/seeders/SettingsSeeder.php' => database_path('seeders/SettingsSeeder.php')
         ], 'samchen-setting-seeder');
 
         $this->publishes([
-            __DIR__ . '/../../database/data/settings.json' => database_path('data/settings.json')
+            __DIR__ . '/../database/data/settings.json' => database_path('data/settings.json')
         ], 'samchen-setting-seeder');
     }
 
@@ -65,7 +68,7 @@ class SettingProvider extends ServiceProvider
             'domain' => null,
             'prefix' => 'api',
         ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../../routes/settings.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/settings.php');
         });
     }
 }

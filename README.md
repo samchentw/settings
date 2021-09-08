@@ -1,6 +1,5 @@
 # Settings
-1.setting table  
-2.
+todo...
 
 
 ## Installation
@@ -10,13 +9,12 @@
 ## Laravel
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 ```sh
-Samchentw\Settings\Providers\SettingProvider::class, 
-Samchentw\Settings\Providers\SettingEventServiceProvider::class
+Samchentw\Settings\SettingProvider::class
 ```
 
 Publish the config file by running: 
 ```sh
-$ php artisan vendor:publish --provider="Samchentw\Settings\Providers\SettingProvider"
+$ php artisan vendor:publish --provider="Samchentw\Settings\SettingProvider"
 ```
 
 
