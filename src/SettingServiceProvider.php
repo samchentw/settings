@@ -6,7 +6,7 @@ use Samchentw\Settings\Models\Setting;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class SettingProvider extends ServiceProvider
+class SettingServiceProvider extends ServiceProvider
 {
 
     /**
