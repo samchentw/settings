@@ -2,12 +2,56 @@
 
 namespace Samchentw\Settings\Helpers;
 
+use Exception;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Http\Request;
 use Samchentw\Settings\Models\Setting;
 
 class SettingHelper
 {
+
+
+    public static function getSettingFromFile()
+    {
+        $file = file_get_contents(database_path('/data/settings.json'));
+        $settingFromFile = collect(json_decode($file));
+        return $settingFromFile;
+    }
+
+    /**
+     * 將預設provider_name的provider_key設為0
+     */
+    public static function setDefaultNameToZero(Setting $setting)
+    {
+        if ($setting->provider_name == '') $setting->provider_name = static::getDefaultProviderName();
+        if ($setting->provider_name == static::getDefaultProviderName()) $setting->provider_key = 0;
+        return $setting;
+    }
+
+    /**
+     * 是否為已註冊 providerName
+     */
+    public static function checkHaveProviderName($providerName)
+    {
+        $defaultKey = ['G', 'U'];
+        $customerKey =  config('setting.customer_provider_name', []);
+        $keys = array_unique(array_merge($defaultKey, $customerKey));
+        $result = in_array($providerName, $keys);
+        if (!$result) throw new Exception($providerName . '為不合法providerName');
+    }
+
+    /**
+     * 取得預設ProviderName
+     */
+    public static function getDefaultProviderName()
+    {
+        $defaultKey = config('setting.default_provider_name', 'G');
+        $customerKey =  config('setting.customer_provider_name', []);
+
+        if (in_array($defaultKey, $customerKey)) return $defaultKey;
+        else return 'G';
+    }
+
     public static function convertType(Setting $setting)
     {
         switch ($setting->type) {

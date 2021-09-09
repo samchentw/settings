@@ -2,10 +2,12 @@
 
 namespace Samchentw\Settings\Repositories;
 
+use Exception;
 use Illuminate\Http\Request;
 use Samchentw\Settings\Models\Setting;
 use Samchentw\Common\Repositories\Base\Repository;
 use Samchentw\Settings\Helpers\SettingHelper;
+use Illuminate\Support\Str;
 
 class SettingRepository extends Repository
 {
@@ -21,31 +23,34 @@ class SettingRepository extends Repository
     /**
      * 以key值取得value
      *  @return Setting
-     *  @todo 重構
      *  @author Sam     
      */
-    public function getByKey(string $key, $provider_name = 'G', $provider_key = null)
+    public function getByKey(string $key, $provider_name = '', $provider_key = null)
     {
-        $query = $this->getQuery();
-        $query->where('key', $key)->where('provider_name', $provider_name);
-
-        if (!$this->isGlobal($provider_name)) {
-            $query->where('provider_key', $provider_key);
-
-            if ($query->first() == null) {
-                $defaultSetting = $this->getDefaultSetting($key, $provider_name);
-
-                return $this->create([
-                    'key' => $key,
-                    'value' => $defaultSetting->value,
-                    'display_name' => $defaultSetting->display_name,
-                    'sort' => $defaultSetting->sort,
-                    'type' => $defaultSetting->type,
-                    'provider_key' => $provider_key,
-                    'provider_name' => $defaultSetting->provider_name
-                ]);
-            }
+        if ($provider_name == '') {
+            $provider_name = SettingHelper::getDefaultProviderName();
+            $provider_key = 0;
         }
+
+        $query = $this->getQuery();
+        $query->where('key', $key)
+            ->where('provider_name', $provider_name)
+            ->where('provider_key', $provider_key);
+
+        if ($query->first() == null) {
+            $defaultSetting = $this->getDefaultSetting($key, $provider_name);
+
+            return $this->create([
+                'key' => $key,
+                'value' => $defaultSetting->value,
+                'display_name' => $defaultSetting->display_name,
+                'sort' => $defaultSetting->sort,
+                'type' => $defaultSetting->type,
+                'provider_key' => $provider_key,
+                'provider_name' => $defaultSetting->provider_name
+            ]);
+        }
+
         $setting = $query->first();
         SettingHelper::convertType($setting);
         return $setting;
@@ -58,68 +63,84 @@ class SettingRepository extends Repository
      *  output: video.youtube.url、video.facebook.url,
      *  @return array
      */
-    public function getByFirstWord(string $word)
+    public function getByFirstWord(string $word, $provider_name = '', $provider_key = null)
     {
-        $query = $this->getQuery();
-        $query->where('key', 'like', $word . '.%')
-            ->where('provider_name', 'G')
-            ->orderBy('sort');
-
-        $settings = $query->get()->all();
-
-        foreach ($settings as $setting) {
-            SettingHelper::convertType($setting);
+        if ($provider_name == '') {
+            $provider_name = SettingHelper::getDefaultProviderName();
+            $provider_key = 0;
         }
 
-        return $settings;
+        $collection = SettingHelper::getSettingFromFile();
+        $result = $collection->filter(function ($item) use ($word) {
+            return Str::of($item->key)->startsWith($word.'.');
+        })->where('provider_name', $provider_name)
+        ->where('provider_key', $provider_key);
+
+        if($result->count() == 0) throw new Exception('無此群組！');
+
+        $settings = collect([]);
+        foreach($result->all() as $r)
+        {
+            $setting = $this->getByKey($r->key,$r->provider_name,$r->provider_key);
+            $settings->push($setting);
+        }
+        return $settings->sortBy('sort')->all();
     }
 
 
     /**
      *  修改某個key的value    
      *  @return Setting  
-     *  @todo 重構
      *  @author Sam   
      */
-    public function setByKey(string $key,  $value, $provider_name = 'G', $provider_key = null)
+    public function setByKey(string $key,  $value, $provider_name = '', $provider_key = null)
     {
-        if (!$this->isGlobal($provider_name)) {
-            $data = $this->model->where('key', $key)
-                ->where('provider_name', $provider_name)
-                ->where('provider_key', $provider_key);
+        if ($provider_name == '') {
+            $provider_name = SettingHelper::getDefaultProviderName();
+            $provider_key = 0;
+        }
+        $data = $this->model->where('key', $key)
+            ->where('provider_name', $provider_name)
+            ->where('provider_key', $provider_key);
 
-            if ($data->first() == null) {
-                $defaultSetting = $this->getDefaultSetting($key, $provider_name);
+        if ($data->first() == null) {
+            $defaultSetting = $this->getDefaultSetting($key, $provider_name);
 
-                $this->create([
-                    'key' => $key,
-                    'value' => $value,
-                    'display_name' => $defaultSetting->display_name,
-                    'sort' => $defaultSetting->sort,
-                    'type' => $defaultSetting->type,
-                    'provider_key' => $provider_key,
-                    'provider_name' => $defaultSetting->provider_name
-                ]);
-            } else {
-                return $data->update(['value' => $value]);
-            }
+            $this->create([
+                'key' => $key,
+                'value' => $value,
+                'display_name' => $defaultSetting->display_name,
+                'sort' => $defaultSetting->sort,
+                'type' => $defaultSetting->type,
+                'provider_key' => $provider_key,
+                'provider_name' => $defaultSetting->provider_name
+            ]);
         } else {
-            return $this->model->where('key', $key)
-                ->where('provider_name', $provider_name)
-                ->update(['value' => $value]);
+            return $data->update(['value' => $value]);
         }
     }
 
+    /** Private Function */
+
     private function getDefaultSetting($key, $provider_name)
     {
-        return $this->model->where('key', $key)
+        SettingHelper::checkHaveProviderName($provider_name);
+        $settingFromDB =  $this->model->where('key', $key)
             ->where('provider_name', $provider_name)
             ->where('provider_key', 0)
             ->first();
-    }
 
-    private function isGlobal($input)
-    {
-        return $input == 'G';
+        if ($settingFromDB != null) return $settingFromDB;
+
+
+        $settingFromFile = SettingHelper::getSettingFromFile();
+        $fileResult = $settingFromFile
+            ->where('key', $key)
+            ->where('provider_name', $provider_name)
+            ->where('provider_key', 0)
+            ->first();
+
+        if ($fileResult != null) return $fileResult;
+        else throw new Exception('key值 ' . $key . '(' . $provider_name . ')' . ' 沒被註冊，所以無法使用！');
     }
 }

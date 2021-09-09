@@ -44,6 +44,10 @@ class SettingServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
+            __DIR__.'/../config/setting.php' => config_path('setting.php'),
+        ], 'setting-config');
+
+        $this->publishes([
             __DIR__ . '/../database/migrations/2021_08_05_081049_create_settings_table.php' => database_path('migrations/2021_08_05_081049_create_settings_table.php')
         ], 'samchen-setting-migrations');
 

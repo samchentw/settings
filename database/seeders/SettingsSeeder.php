@@ -18,7 +18,9 @@ class SettingsSeeder extends Seeder
         $settings = json_decode($file);
 
         foreach ($settings as $setting) {
-            $check = DB::table('settings')->where('key', $setting->key)->first();
+            $check = DB::table('settings')
+            ->where('key', $setting->key)
+            ->where('provider_name', $setting->provider_name)->first();
 
             if (empty($check)) {
                 DB::table('settings')->insert([

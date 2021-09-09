@@ -6,6 +6,12 @@ use Samchentw\Settings\Models\Setting;
 use Samchentw\Settings\Helpers\SettingHelper;
 class SettingObserver
 {  
+    public function creating(Setting $setting)
+    {
+        SettingHelper::setDefaultNameToZero($setting);
+    }
+   
+
     /**
      * Handle the Setting "saving " event.
      *
