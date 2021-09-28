@@ -1,5 +1,6 @@
 # Settings
-todo...
+1.Can store system configuration data  
+2.Can store other table data, such as: user settings, store settings, etc.  
 
 
 ## Installation
@@ -16,7 +17,107 @@ Publish the config file by running:
 ```sh
 $ php artisan vendor:publish --provider="Samchentw\Settings\SettingServiceProvider"
 ```
+Create the database table required for this package.
+```sh
+$ php artisan migrate
+```
+Run seed, If you want to modify the seed information, please go to data/settings.json
+```sh
+$ php artisan db:seed --class=SettingsSeeder
+```
+
+## Settings.json and Model attribute
+```json
+{
+    "display_name": "範例全域參數-數字", //顯示名稱
+    "type": "number", // 'string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time'
+    "sort": 1, //在群組中的排序
+    "key": "example.category_limite", //搜尋時需要用到的key值
+    "value": "4",   //此kye值的資料
+    "provider_key": 0, //如果provider_name為全域變數名稱，值就為0，此欄位可存UserId或其他表Id
+    "provider_name": "G"  //全域變數名稱，預設為G，如需更改請到config/setting.php修改
+}
+```
+
+## Usage
+
+Simple example
+
+```php
+    use App\Http\Controllers\Controller;
+    use Illuminate\Http\Request;
+    use Samchentw\Settings\Repositories\SettingRepository;
+
+    class SettingController extends Controller
+    {
+        private $settingRepository;
+        public function __construct(SettingRepository $SettingRepository)
+        {
+            $this->settingRepository = $SettingRepository;
+        }
 
 
-## Feature
-todo...
+        function getSettings(Request $request)
+        {
+            return $this->settingRepository->getByKey('example.title');
+        }
+    }
+```
+
+output:
+```json
+   {
+        "display_name": "範例全域參數-標題",
+        "type": "string",
+        "sort": 1,
+        "key": "example.title",
+        "value": "後台系統",
+        "provider_key": 0,
+        "provider_name": "G"
+    }
+```
+
+If type is boolean
+
+```php
+    use App\Http\Controllers\Controller;
+    use Illuminate\Http\Request;
+    use Samchentw\Settings\Repositories\SettingRepository;
+
+    class SettingController extends Controller
+    {
+        private $settingRepository;
+        public function __construct(SettingRepository $SettingRepository)
+        {
+            $this->settingRepository = $SettingRepository;
+        }
+
+
+        function getSettings(Request $request)
+        {
+            return $this->settingRepository->getByKey('test.boolean');
+        }
+    }
+```
+
+output:
+```json
+   {
+        "display_name": "測試boolean",
+        "type": "boolean",
+        "sort": 0,
+        "key": "test.boolean",
+        "value": false,
+        "provider_key": 0,
+        "provider_name": "G"
+    }
+```
+
+Use provider_name 
+```php
+    $userId= 3 ;
+    $this->settingRepository->getByKey('example.title','U',$userId);
+
+    $anotherUserId = 4;
+    $this->settingRepository->setByKey('example.title','使用者自訂標題','U',$anotherUserId);
+```
