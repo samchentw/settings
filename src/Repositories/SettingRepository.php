@@ -40,7 +40,7 @@ class SettingRepository extends Repository
         if ($query->first() == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
 
-            return $this->create([
+            $setting = $this->create([
                 'key' => $key,
                 'value' => $defaultSetting->value,
                 'display_name' => $defaultSetting->display_name,
@@ -49,6 +49,8 @@ class SettingRepository extends Repository
                 'provider_key' => $provider_key,
                 'provider_name' => $defaultSetting->provider_name
             ]);
+            SettingHelper::convertType($setting);
+            return $setting;
         }
 
         $setting = $query->first();
@@ -101,9 +103,9 @@ class SettingRepository extends Repository
         }
         $data = $this->model->where('key', $key)
             ->where('provider_name', $provider_name)
-            ->where('provider_key', $provider_key);
+            ->where('provider_key', $provider_key)->first();
 
-        if ($data->first() == null) {
+        if ($data == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
 
             $this->create([
@@ -116,7 +118,7 @@ class SettingRepository extends Repository
                 'provider_name' => $defaultSetting->provider_name
             ]);
         } else {
-            return $data->update(['value' => $value]);
+            return $this->getModel()->find($data->id)->update(['value' => $value]);
         }
     }
 

@@ -16,9 +16,9 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(
-            Providers\SettingEventServiceProvider::class,
-        );  
+        // $this->app->register(
+        //     Providers\SettingEventServiceProvider::class,
+        // );  
     }
 
     /**

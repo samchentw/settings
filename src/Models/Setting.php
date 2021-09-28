@@ -4,10 +4,18 @@ namespace Samchentw\Settings\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Samchentw\Settings\Observers\SettingObserver;
 
 class Setting extends Model
 {
     use HasFactory;
+
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(new SettingObserver);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +29,7 @@ class Setting extends Model
     /**
      * type enum
      * 
-     * @var array
+     * @var array String、Text、Number、Boolean、Html、Date、DateTime
      */
     public const TYPES = [
         'String' => 'string',     //一般字串

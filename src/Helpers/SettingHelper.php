@@ -9,8 +9,6 @@ use Samchentw\Settings\Models\Setting;
 
 class SettingHelper
 {
-
-
     public static function getSettingFromFile()
     {
         $file = file_get_contents(database_path('/data/settings.json'));
@@ -46,7 +44,7 @@ class SettingHelper
     public static function getDefaultProviderName()
     {
         $defaultKey = config('setting.default_provider_name', 'G');
-        $customerKey =  config('setting.customer_provider_name', []);
+        $customerKey = config('setting.customer_provider_name', []);
 
         if (in_array($defaultKey, $customerKey)) return $defaultKey;
         else return 'G';
@@ -80,7 +78,7 @@ class SettingHelper
                 $setting->value = (string)$setting->value;
                 break;
             case Setting::TYPES['Boolean']:
-                $setting->value = (string)$setting->value;
+                $setting->value = $setting->value ? '1' : '0';;
                 break;
             case Setting::TYPES['Date']:
                 $setting->value = (string)$setting->value;
