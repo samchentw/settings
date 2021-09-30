@@ -29,7 +29,7 @@ class Setting extends Model
     /**
      * type enum
      * 
-     * @var array String、Text、Number、Boolean、Html、Date、DateTime
+     * @var array String、Text、Number、Boolean、Html、Date、DateTime、Json
      */
     public const TYPES = [
         'String' => 'string',     //一般字串
@@ -38,7 +38,8 @@ class Setting extends Model
         'Boolean'  => 'boolean',  //布林值
         'Html'  => 'html',        //文字編輯器
         'Date'  => 'date',         //日期
-        'DateTime'  => 'date_time' //日期時間
+        'DateTime'  => 'date_time', //日期時間
+        'Json'  => 'json'
     ];
 
     /**

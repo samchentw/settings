@@ -30,7 +30,7 @@ $ php artisan db:seed --class=SettingsSeeder
 ```json
 {
     "display_name": "範例全域參數-數字", //顯示名稱
-    "type": "number", // 'string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time'
+    "type": "number", // 'string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time','json'
     "sort": 1, //在群組中的排序
     "key": "example.category_limite", //搜尋時需要用到的key值
     "value": "4",   //此kye值的資料
@@ -120,4 +120,17 @@ Use provider_name
 
     $anotherUserId = 4;
     $this->settingRepository->setByKey('example.title','使用者自訂標題','U',$anotherUserId);
+```
+
+If you must get keys  
+For example:
+    social.fb
+    social.line
+    social.google
+
+```php
+    $userId= 3 ;
+    $this->settingRepository->getByFirstWord('social','U',$userId);
+
+   
 ```

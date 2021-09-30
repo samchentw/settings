@@ -106,5 +106,23 @@
         "value": "Laravel",
         "provider_key": 0,
         "provider_name": "G"
+    },
+    {
+        "display_name": "測試boolean",
+        "type": "boolean",
+        "sort": 0,
+        "key": "test.boolean",
+        "value": "0",
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "測試json",
+        "type": "json",
+        "sort": 0,
+        "key": "test.json",
+        "value": "[]",
+        "provider_key": 0,
+        "provider_name": "G"
     }
 ]

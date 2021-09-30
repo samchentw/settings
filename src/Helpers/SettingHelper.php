@@ -66,6 +66,8 @@ class SettingHelper
             case Setting::TYPES['DateTime']:
                 $date = strtotime($setting->value);
                 $setting->value = date('Y-m-d H:i:s', $date);
+            case Setting::TYPES['Json']:
+                $setting->value = json_decode($setting->value);
                 break;
         }
     }
@@ -85,6 +87,11 @@ class SettingHelper
                 break;
             case Setting::TYPES['DateTime']:
                 $setting->value = (string)$setting->value;
+                break;
+            case Setting::TYPES['Json']:
+                if (is_array($setting->value)) {
+                    $setting->value = json_encode($setting->value);
+                } else  $setting->value = '[]';
                 break;
         }
     }

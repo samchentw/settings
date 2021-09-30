@@ -16,7 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('display_name');
-            $table->enum('type', ['string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time']);
+            $table->enum('type', ['string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time', 'json']);
             $table->integer('sort')->default(0);
             $table->string('key');
             $table->longText('value')->nullable()->default("");
