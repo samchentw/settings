@@ -86,7 +86,7 @@ class SettingRepository extends Repository
             $setting = $this->getByKey($r->key,$r->provider_name,$r->provider_key);
             $settings->push($setting);
         }
-        return $settings->sortBy('sort')->all();
+        return $settings->sortBy('sort')->values()->all();
     }
 
 
