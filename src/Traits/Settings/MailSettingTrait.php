@@ -7,20 +7,20 @@ use Illuminate\Support\Str;
 trait MailSettingTrait
 {
     /**
-     * @var App\Repositories\SettingRepository;
+     * @var Samchentw\Settings\Contracts\SettingManager;
      */
-    private $settingRepository;
+    private $settingManager;
 
 
-     //setting Key
-     private $mailGroup = "mail";
+    //setting Key
+    private $mailGroup = "mail";
 
 
 
-      // get group setting
+    // get group setting
     public function getMailGroup()
     {
-        $result = $this->settingRepository->getByFirstWord($this->mailGroup);
+        $result = $this->settingManager->getByFirstWord($this->mailGroup);
         return $result;
     }
 
@@ -30,8 +30,7 @@ trait MailSettingTrait
     {
         foreach ($arrays as $data) {
             if (!Str::startsWith($data['key'], $this->mailGroup . '.')) continue;
-            $this->settingRepository->setByKey($data['key'],$data['value']);
+            $this->settingManager->setByKey($data['key'], $data['value']);
         }
     }
-
 }

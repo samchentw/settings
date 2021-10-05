@@ -7,15 +7,16 @@ use Illuminate\Http\Request;
 use Samchentw\Settings\Traits\Settings\TinymceSettingTrait;
 use Samchentw\Settings\Traits\Settings\MailSettingTrait;
 use Samchentw\Settings\Repositories\SettingRepository;
+use Samchentw\Settings\Contracts\SettingManager;
 
 class SettingController extends Controller
 {
     use TinymceSettingTrait, MailSettingTrait;
-    private $settingRepository;
+    private $settingManager;
 
-    public function __construct(SettingRepository $SettingRepository)
+    public function __construct(SettingManager $SettingManager)
     {
-        $this->settingRepository = $SettingRepository;
+        $this->settingManager = $SettingManager;
     }
 
 

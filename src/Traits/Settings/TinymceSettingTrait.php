@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 trait TinymceSettingTrait
 {
     /**
-     * @var Samchen\Settings\Repositories\SettingRepository;
+     * @var Samchentw\Settings\Contracts\SettingManager;
      */
-    private $settingRepository;
+    private $settingManager;
 
     // setting Key
     private $tinymceKey = "tinymce.api.key";
@@ -21,7 +21,7 @@ trait TinymceSettingTrait
      */
     public function getTinymceKey()
     {
-        $apiKey = $this->settingRepository->getByKey($this->tinymceKey);
+        $apiKey = $this->settingManager->getByKey($this->tinymceKey);
         return $apiKey;
     }
 
@@ -30,6 +30,6 @@ trait TinymceSettingTrait
      */
     public function setTinymceKey(string $value)
     {
-        $this->settingRepository->setByKey($this->tinymceKey, $value);
+        $this->settingManager->setByKey($this->tinymceKey, $value);
     }
 }

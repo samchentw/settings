@@ -3,8 +3,6 @@
 namespace Samchentw\Settings\Helpers;
 
 use Exception;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Http\Request;
 use Samchentw\Settings\Models\Setting;
 
 class SettingHelper
