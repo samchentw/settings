@@ -46,14 +46,14 @@ Simple example
 ```php
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
-    use Samchentw\Settings\Repositories\SettingRepository;
+    use Samchentw\Settings\Contracts\SettingManager;
 
     class SettingController extends Controller
     {
-        private $settingRepository;
-        public function __construct(SettingRepository $SettingRepository)
+        private $settingManager;
+        public function __construct(SettingManager $SettingManager)
         {
-            $this->settingRepository = $SettingRepository;
+            $this->settingManager = $SettingManager;
         }
 
 
@@ -82,20 +82,20 @@ If type is boolean
 ```php
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
-    use Samchentw\Settings\Repositories\SettingRepository;
+    use Samchentw\Settings\Contracts\SettingManager;
 
     class SettingController extends Controller
     {
-        private $settingRepository;
-        public function __construct(SettingRepository $SettingRepository)
+        private $settingManager;
+        public function __construct(SettingManager $SettingManager)
         {
-            $this->settingRepository = $SettingRepository;
+            $this->settingManager = $SettingManager;
         }
 
 
         function getSettings(Request $request)
         {
-            return $this->settingRepository->getByKey('test.boolean');
+            return $this->settingManager->getByKey('test.boolean');
         }
     }
 ```
@@ -116,10 +116,10 @@ output:
 Use provider_name 
 ```php
     $userId= 3 ;
-    $this->settingRepository->getByKey('example.title','U',$userId);
+    $this->settingManager->getByKey('example.title','U',$userId);
 
     $anotherUserId = 4;
-    $this->settingRepository->setByKey('example.title','使用者自訂標題','U',$anotherUserId);
+    $this->settingManager->setByKey('example.title','使用者自訂標題','U',$anotherUserId);
 ```
 
 If you must get keys  
@@ -130,7 +130,43 @@ For example:
 
 ```php
     $userId= 3 ;
-    $this->settingRepository->getByFirstWord('social','U',$userId);
+    $this->settingManager->getByFirstWord('social','U',$userId);
 
    
+```
+
+## Change SettingManager method
+in the providers/AppServiceProvider
+
+```php
+    use App\YourNameSpace\MySetting;
+    use Samchentw\Settings\Contracts\SettingManager;
+
+    class AppServiceProvider extends ServiceProvider
+    {
+
+        public function boot()
+        {
+            app()->singleton(
+                SettingManager::class,
+                MySetting::class
+            );
+
+   
+```
+
+MySetting.php
+```php
+    use Samchentw\Settings\Contracts\SettingManager;
+    use Samchentw\Settings\Models\Setting;
+    
+    class MySetting implements SettingManager
+    {
+
+        public function getByKey(string $key, $provider_name = '', $provider_key = null)
+        {
+            //your code....
+        }
+
+    //your code....
 ```

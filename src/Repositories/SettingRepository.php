@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Samchentw\Settings\Models\Setting;
 use Samchentw\Common\Repositories\Base\Repository;
 use Samchentw\Settings\Helpers\SettingHelper;
+use Samchentw\Settings\Contracts\SettingManager;
 use Illuminate\Support\Str;
 
-class SettingRepository extends Repository
+
+class SettingRepository extends Repository implements SettingManager
 {
     /**
      * @return string

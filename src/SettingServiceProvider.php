@@ -2,7 +2,8 @@
 
 namespace Samchentw\Settings;
 
-use Samchentw\Settings\Models\Setting;
+use Samchentw\Settings\Contracts\SettingManager;
+use Samchentw\Settings\Repositories\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,10 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->register(
-        //     Providers\SettingEventServiceProvider::class,
-        // );  
+        $this->app->singleton(
+            SettingManager::class,
+            SettingRepository::class
+        );
     }
 
     /**
@@ -44,7 +46,7 @@ class SettingServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__.'/../config/setting.php' => config_path('setting.php'),
+            __DIR__ . '/../config/setting.php' => config_path('setting.php'),
         ], 'setting-config');
 
         $this->publishes([
