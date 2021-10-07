@@ -10,7 +10,6 @@ class Setting extends Model
 {
     use HasFactory;
 
-
     protected static function boot()
     {
         parent::boot();
@@ -39,7 +38,7 @@ class Setting extends Model
         'Html'  => 'html',        //文字編輯器
         'Date'  => 'date',         //日期
         'DateTime'  => 'date_time', //日期時間
-        'Json'  => 'json'
+        'Json'  => 'json'   //陣列格式
     ];
 
     /**

@@ -3,22 +3,23 @@
 namespace Samchentw\Settings\Repositories;
 
 use Exception;
-use Illuminate\Http\Request;
 use Samchentw\Settings\Models\Setting;
-use Samchentw\Common\Repositories\Base\Repository;
 use Samchentw\Settings\Helpers\SettingHelper;
 use Samchentw\Settings\Contracts\SettingManager;
 use Illuminate\Support\Str;
 
 
-class SettingRepository extends Repository implements SettingManager
+class SettingRepository implements SettingManager
 {
     /**
-     * @return string
+     * @return Setting
      */
-    public function model(): string
+    public function model(): Setting
     {
-        return Setting::class;
+        $env = config('setting.connection');
+        $setting = new Setting();
+        if ($env != '') $setting->setConnection($env);
+        return $setting;
     }
 
 
@@ -34,7 +35,7 @@ class SettingRepository extends Repository implements SettingManager
             $provider_key = 0;
         }
 
-        $query = $this->getQuery();
+        $query = $this->model()->newQuery();
         $query->where('key', $key)
             ->where('provider_name', $provider_name)
             ->where('provider_key', $provider_key);
@@ -42,7 +43,7 @@ class SettingRepository extends Repository implements SettingManager
         if ($query->first() == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
 
-            $setting = $this->create([
+            $setting = $this->model()->create([
                 'key' => $key,
                 'value' => $defaultSetting->value,
                 'display_name' => $defaultSetting->display_name,
@@ -76,16 +77,15 @@ class SettingRepository extends Repository implements SettingManager
 
         $collection = SettingHelper::getSettingFromFile();
         $result = $collection->filter(function ($item) use ($word) {
-            return Str::of($item->key)->startsWith($word.'.');
+            return Str::of($item->key)->startsWith($word . '.');
         })->where('provider_name', $provider_name)
-        ->where('provider_key', $provider_key);
+            ->where('provider_key', $provider_key);
 
-        if($result->count() == 0) throw new Exception('無此群組！');
+        if ($result->count() == 0) throw new Exception('無此群組！');
 
         $settings = collect([]);
-        foreach($result->all() as $r)
-        {
-            $setting = $this->getByKey($r->key,$r->provider_name,$r->provider_key);
+        foreach ($result->all() as $r) {
+            $setting = $this->getByKey($r->key, $r->provider_name, $r->provider_key);
             $settings->push($setting);
         }
         return $settings->sortBy('sort')->values()->all();
@@ -103,14 +103,14 @@ class SettingRepository extends Repository implements SettingManager
             $provider_name = SettingHelper::getDefaultProviderName();
             $provider_key = 0;
         }
-        $data = $this->model->where('key', $key)
+        $data = $this->model()->where('key', $key)
             ->where('provider_name', $provider_name)
             ->where('provider_key', $provider_key)->first();
 
         if ($data == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
 
-            $this->create([
+            $this->model()->create([
                 'key' => $key,
                 'value' => $value,
                 'display_name' => $defaultSetting->display_name,
@@ -120,7 +120,7 @@ class SettingRepository extends Repository implements SettingManager
                 'provider_name' => $defaultSetting->provider_name
             ]);
         } else {
-            return $this->getModel()->find($data->id)->update(['value' => $value]);
+            return $this->model()->find($data->id)->update(['value' => $value]);
         }
     }
 
@@ -129,7 +129,7 @@ class SettingRepository extends Repository implements SettingManager
     private function getDefaultSetting($key, $provider_name)
     {
         SettingHelper::checkHaveProviderName($provider_name);
-        $settingFromDB =  $this->model->where('key', $key)
+        $settingFromDB =  $this->model()->where('key', $key)
             ->where('provider_name', $provider_name)
             ->where('provider_key', 0)
             ->first();
