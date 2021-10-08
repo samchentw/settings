@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Samchentw\\Settings\\SettingServiceProvider::class"
+                "Samchentw\\Settings\\SettingServiceProvider"
             ]
         }
     }
