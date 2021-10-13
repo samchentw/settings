@@ -78,14 +78,15 @@ class SettingRepository implements SettingManager
         $collection = SettingHelper::getSettingFromFile();
         $result = $collection->filter(function ($item) use ($word) {
             return Str::of($item->key)->startsWith($word . '.');
-        })->where('provider_name', $provider_name)
-            ->where('provider_key', $provider_key);
+        })
+        ->where('provider_name', $provider_name)
+        ->where('provider_key', 0);
 
         if ($result->count() == 0) throw new Exception('無此群組！');
 
         $settings = collect([]);
         foreach ($result->all() as $r) {
-            $setting = $this->getByKey($r->key, $r->provider_name, $r->provider_key);
+            $setting = $this->getByKey($r->key, $r->provider_name, $provider_key);
             $settings->push($setting);
         }
         return $settings->sortBy('sort')->values()->all();
