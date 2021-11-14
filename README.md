@@ -54,7 +54,7 @@ Simple example
 
         function getSettings(Request $request)
         {
-            return $this->settingRepository->getByKey('example.title');
+            return $this->settingManager->getByKey('example.title');
         }
     }
 ```
