@@ -42,7 +42,7 @@ class SettingRepository implements SettingManager
 
         if ($query->first() == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
-
+ 
             $setting = $this->model()->create([
                 'key' => $key,
                 'value' => $defaultSetting->value,
@@ -110,7 +110,7 @@ class SettingRepository implements SettingManager
 
         if ($data == null) {
             $defaultSetting = $this->getDefaultSetting($key, $provider_name);
-
+ 
             $this->model()->create([
                 'key' => $key,
                 'value' => $value,

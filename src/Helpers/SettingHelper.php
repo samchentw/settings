@@ -90,7 +90,7 @@ class SettingHelper
             case Setting::TYPES['Json']:
                 if (is_array($setting->value)) {
                     $setting->value = json_encode($setting->value);
-                } else  $setting->value = '[]';
+                } else $setting->value = '[]';
                 break;
         }
     }

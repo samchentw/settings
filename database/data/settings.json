@@ -4,7 +4,7 @@
         "type": "number",
         "sort": 2,
         "key": "example.category_limite",
-        "value": "4",
+        "value": 100,
         "provider_key": 0,
         "provider_name": "G"
     },
@@ -22,9 +22,36 @@
         "type": "number",
         "sort": 0,
         "key": "example.user.count",
-        "value": "1",
+        "value": 1,
         "provider_key": 0,
         "provider_name": "U"
+    },
+    {
+        "display_name": "測試boolean",
+        "type": "boolean",
+        "sort": 0,
+        "key": "test.boolean",
+        "value": true,
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "測試json",
+        "type": "json",
+        "sort": 0,
+        "key": "test.json",
+        "value": [{"value:":"123"},{"value:":"456"},{"value:":"789"}],
+        "provider_key": 0,
+        "provider_name": "G"
+    },
+    {
+        "display_name": "測試日期",
+        "type": "date",
+        "sort": 0,
+        "key": "test.date",
+        "value": "2021-03-30",
+        "provider_key": 0,
+        "provider_name": "G"
     },
     {
         "display_name": "文字編輯器金鑰",
@@ -104,24 +131,6 @@
         "sort": 8,
         "key": "mail.from_name",
         "value": "Laravel",
-        "provider_key": 0,
-        "provider_name": "G"
-    },
-    {
-        "display_name": "測試boolean",
-        "type": "boolean",
-        "sort": 0,
-        "key": "test.boolean",
-        "value": "0",
-        "provider_key": 0,
-        "provider_name": "G"
-    },
-    {
-        "display_name": "測試json",
-        "type": "json",
-        "sort": 0,
-        "key": "test.json",
-        "value": "[]",
         "provider_key": 0,
         "provider_name": "G"
     }

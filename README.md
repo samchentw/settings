@@ -28,9 +28,36 @@ $ php artisan db:seed --class=SettingsSeeder
     "type": "number", // 'string', 'password', 'text', 'number', 'boolean', 'html', 'date', 'date_time','json'
     "sort": 1, //在群組中的排序
     "key": "example.category_limite", //搜尋時需要用到的key值
-    "value": "4",   //此kye值的資料
+    "value": 100,   //此kye值的資料
     "provider_key": 0, //如果provider_name為全域變數名稱，值就為0，此欄位可存UserId或其他表Id
     "provider_name": "G"  //全域變數名稱，預設為G，如需更改請到config/setting.php修改
+},
+{
+    "display_name": "測試boolean",
+    "type": "boolean",
+    "sort": 0,
+    "key": "test.boolean",
+    "value": true,
+    "provider_key": 0,
+    "provider_name": "G"
+},
+{
+    "display_name": "測試json",
+    "type": "json",
+    "sort": 0,
+    "key": "test.json",
+    "value": [{"value:":"123"},{"value:":"456"},{"value:":"789"}],
+    "provider_key": 0,
+    "provider_name": "G"
+},
+{
+    "display_name": "測試日期",
+    "type": "date",
+    "sort": 0,
+    "key": "test.date",
+    "value": "2021-03-30",
+    "provider_key": 0,
+    "provider_name": "G"
 }
 ```
 

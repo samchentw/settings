@@ -26,5 +26,5 @@ return [
     /**
      * 是否啟用setting預設api
      */
-    "setting_api_enable" => true,
+    "setting_api_enable" => false,
 ];
