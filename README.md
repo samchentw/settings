@@ -16,10 +16,8 @@ Create the database table required for this package.
 ```sh
 $ php artisan migrate
 ```
-Run seed, If you want to modify the seed information, please go to data/settings.json
-```sh
-$ php artisan db:seed --class=SettingsSeeder
-```
+If you want to modify the data/settings.json,you can go to 127.0.0.1:8000/samchentw/setting/index.  
+Don't forget to set the setting_web_enable in config/setting.php to true.
 
 ## Settings.json and Model attribute
 ```json
