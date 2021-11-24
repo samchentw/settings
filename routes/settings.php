@@ -18,7 +18,12 @@ if (config('setting.setting_api_enable', false)) {
 
 
 if (config('setting.setting_web_enable', false)) {
-    Route::prefix('samchentw/setting')->name('samchentw.setting.')->middleware(['api'])->group(function () {
+
+    Route::prefix('api/setting')->name('setting.')->group(function () {
+        Route::put('reset-settings-json', [SettingController::class, 'resetSettingJsonFile']);
+    });
+
+    Route::prefix('samchentw/setting')->name('samchentw.setting.')->group(function () {
         Route::get('/index', [WebController::class, 'index']);
     });
 }

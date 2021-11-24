@@ -8,7 +8,7 @@ use Samchentw\Settings\Traits\Settings\TinymceSettingTrait;
 use Samchentw\Settings\Traits\Settings\MailSettingTrait;
 use Samchentw\Settings\Repositories\SettingRepository;
 use Samchentw\Settings\Contracts\SettingManager;
-
+use Illuminate\Filesystem\Filesystem;
 class SettingController extends Controller
 {
     use TinymceSettingTrait, MailSettingTrait;
@@ -66,5 +66,26 @@ class SettingController extends Controller
     public function setMailGroupSetting(Request $request)
     {
         return $this->setMailGroup($request->group);
+    }
+
+
+    /**
+     * @group SettingController(設定)
+     * Setting5 resetSettingJsonFile
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetSettingJsonFile(Request $request)
+    {
+        $request->validate([
+            'input' => ['string', 'required']
+        ]);
+
+        $input = $request->get('input');
+        $path = database_path('data/settings.json');
+        $json = json_decode($input);
+        $json_string = json_encode($json, JSON_PRETTY_PRINT);
+        (new Filesystem)->put($path, $json_string, true);
     }
 }
