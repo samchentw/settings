@@ -32,8 +32,13 @@ class SettingServiceProvider extends ServiceProvider
     {
         $this->configureRoutes();
         $this->configurePublishing();
+        $this->configureView();
     }
 
+    public function configureView()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'setting');
+    }
     /**
      * Configure publishing for the package.
      *
@@ -53,9 +58,9 @@ class SettingServiceProvider extends ServiceProvider
             __DIR__ . '/../database/migrations/2021_08_05_081049_create_settings_table.php' => database_path('migrations/2021_08_05_081049_create_settings_table.php')
         ], 'samchen-setting-migrations');
 
-        $this->publishes([
-            __DIR__ . '/../database/seeders/SettingsSeeder.php' => database_path('seeders/SettingsSeeder.php')
-        ], 'samchen-setting-seeder');
+        // $this->publishes([
+        //     __DIR__ . '/../database/seeders/SettingsSeeder.php' => database_path('seeders/SettingsSeeder.php')
+        // ], 'samchen-setting-seeder');
 
         $this->publishes([
             __DIR__ . '/../database/data/settings.json' => database_path('data/settings.json')
@@ -72,7 +77,7 @@ class SettingServiceProvider extends ServiceProvider
         Route::group([
             'namespace' => 'Samchen\Settings\Http\Controllers',
             'domain' => null,
-            'prefix' => 'api',
+            'prefix' => '',
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/../routes/settings.php');
         });

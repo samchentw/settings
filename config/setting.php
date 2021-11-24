@@ -27,4 +27,9 @@ return [
      * 是否啟用setting預設api
      */
     "setting_api_enable" => false,
+
+    /**
+     * 是否啟用setting後台設定
+     */
+    "setting_web_enable" => true
 ];
