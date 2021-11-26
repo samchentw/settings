@@ -204,11 +204,13 @@
                     let data = {
                         input: result
                     }
+                    let meta = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
                     fetch(this.apiPath, {
                             method: 'PUT',
                             body: JSON.stringify(data), // data can be `string` or {object}!
                             headers: new Headers({
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN':meta
                             })
                         })
                         .catch(error => {
