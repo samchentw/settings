@@ -18,6 +18,8 @@ $ php artisan migrate
 ```
 If you want to modify the data/settings.json,you can go to 127.0.0.1:8000/samchentw/setting/index.  
 Don't forget to set the setting_web_enable in config/setting.php to true.
+![image](https://user-images.githubusercontent.com/89454932/143267343-7feb1974-1983-4a2c-a7cf-3fe91d840f5c.png)
+
 
 ## Settings.json and Model attribute
 ```json
