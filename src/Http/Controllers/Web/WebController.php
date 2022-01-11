@@ -15,10 +15,10 @@ class WebController extends Controller
 
     public function index()
     {
-        $fileDatas = file_get_contents(database_path('data/settings.json'));
+        $fileDatas = file_get_contents(config('setting.file_path'));
         $settings = json_decode($fileDatas);
         $providerName = collect(['U'])->concat(config('setting.customer_provider_name', []));
         $defaultproviderName = config('setting.default_provider_name', []);
-        return view('setting::index', compact( 'settings', 'providerName', 'defaultproviderName'));
+        return view('setting::index', compact('settings', 'providerName', 'defaultproviderName'));
     }
 }
