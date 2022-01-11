@@ -4,6 +4,7 @@ namespace Samchentw\Settings\Tests\Feature;
 
 use Samchentw\Settings\Tests\TestCase;
 use Samchentw\Settings\Contracts\SettingManager;
+
 class ExampleTest extends TestCase
 {
     /**
@@ -14,14 +15,10 @@ class ExampleTest extends TestCase
     public function test_example()
     {
         $this->migrate();
-
         $setting = app(SettingManager::class);
-        $setting->getByKey("example.user.count");
-        $this->assertIsBool(true);
+        $result = $setting->getByKey("example.count");
+        $this->assertEquals(100, $result->value);
     }
 
-    protected function migrate()
-    {
-        $this->artisan('migrate')->run();
-    }
+   
 }

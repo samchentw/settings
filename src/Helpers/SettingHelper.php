@@ -9,7 +9,9 @@ class SettingHelper
 {
     public static function getSettingFromFile()
     {
-        $file = file_get_contents(database_path('/data/settings.json'));
+        // dump(config('setting.file_path'));
+        $file = file_get_contents(config('setting.file_path'));
+       
         $settingFromFile = collect(json_decode($file));
         return $settingFromFile;
     }

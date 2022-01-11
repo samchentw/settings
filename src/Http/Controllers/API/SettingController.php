@@ -83,7 +83,7 @@ class SettingController extends Controller
         ]);
 
         $input = $request->get('input');
-        $path = database_path('data/settings.json');
+        $path = config('setting.file_path');
         $json = json_decode($input);
         $json_string = json_encode($json, JSON_PRETTY_PRINT);
         (new Filesystem)->put($path, $json_string, true);

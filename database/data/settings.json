@@ -3,7 +3,7 @@
         "display_name": "範例全域參數-數字",
         "type": "number",
         "sort": 2,
-        "key": "example.category_limite",
+        "key": "example.count",
         "value": 100,
         "provider_key": 0,
         "provider_name": "G"

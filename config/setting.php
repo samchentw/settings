@@ -31,5 +31,11 @@ return [
     /**
      * 是否啟用setting後台設定
      */
-    "setting_web_enable" => true
+    "setting_web_enable" => true,
+
+
+    /**
+     * 檔案路徑
+     */
+    "file_path" => env('SETTING_FILE_PATH', database_path('/data/settings.json'))
 ];
