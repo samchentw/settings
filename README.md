@@ -1,4 +1,5 @@
 # Settings
+[![tests](https://github.com/samchentw/settings/actions/workflows/tests.yml/badge.svg)](https://github.com/samchentw/settings/actions/workflows/tests.yml)  
 1.Can store system configuration data  
 2.Can store other table data, such as: user settings, store settings, etc.  
 
