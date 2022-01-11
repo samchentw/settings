@@ -33,6 +33,7 @@ class TestCase extends OrchestraTestCase
         $app['config']->set('setting.default_provider_name','G');
         $app['config']->set('setting.customer_provider_name',['A','B']);
         $app['config']->set('setting.file_path', __DIR__.'/../database/data/settings.json');
+        $app['config']->set('setting.setting_web_enable',true);
     }
 
     protected function migrate()
