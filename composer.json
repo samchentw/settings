@@ -24,5 +24,14 @@
                 "Samchentw\\Settings\\SettingServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "^6.23"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Samchentw\\Settings\\Tests\\": "tests"
+        }
     }
 }
