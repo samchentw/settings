@@ -31,7 +31,7 @@ return [
     /**
      * 是否啟用setting後台設定
      */
-    "setting_web_enable" => true,
+    "setting_web_enable" => (bool) env('APP_DEBUG', false),
 
 
     /**
